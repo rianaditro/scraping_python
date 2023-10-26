@@ -3,6 +3,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 url = "https://books.toscrape.com/"
+next_url = "catalogue/page-2.html"
 
 def get_html_data(url):
     r = requests.get(url)
@@ -10,7 +11,24 @@ def get_html_data(url):
         print("request works")"""
     result = r.text
     return result
+html_data = get_html_data(url)
 
+def get_url_books(url):
+    #get string
+    html_data = get_html_data(url)
+    #parsing
+    soup = BeautifulSoup(html_data, features="html.parser")
+    list_url = []
+    html_list = soup.find_all("li", class_="col-xs-6 col-sm-4 col-md-3 col-lg-3")
+    for html in html_list:
+        get_url = html.find("h3").find("a")['href']
+        get_url = url+get_url
+        list_url.append(get_url)
+    return list_url
+url_books = get_url_books(url)
+print(url_books)
+
+""""
 #from url to string html
 html_data = get_html_data(url)
 
@@ -58,18 +76,6 @@ for html in html_target:
         }
     list_result.append(value_dict)
 
-"""
-html.find("h3")
-<h3>
-<a href="catalogue/its-only-the-himalayas_981/index.html" 
-title="It's Only the Himalayas">
-It's Only the Himalayas</a>
-</h3>
-
-html.find("title") -> title is not a tag
-None
-"""
-
-#convert dictionary result to dataframe
+    #convert dictionary result to dataframe
 df = pd.DataFrame(list_result)
-df.to_excel("bookstoscrape.xlsx", index=False)
+df.to_excel("bookstoscrape.xlsx", index=False)"""
