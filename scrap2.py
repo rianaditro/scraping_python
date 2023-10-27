@@ -16,7 +16,7 @@ def get_html_data(url):
 output will be ['https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html', 
 'https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html',....,
 'https://books.toscrape.com/catalogue/soumission_998/index.html']"""
-def get_url_books(url):
+""def get_url_books(url):
     html_str = get_html_data(url)
     soup = BeautifulSoup(html_str, features="html.parser")
     list_result = []
@@ -25,7 +25,7 @@ def get_url_books(url):
         url_result = html.find("h3").find("a")["href"]
         url_result = url+url_result
         list_result.append(url_result)
-    return list_result
+    return list_result""
 
 """this function is scrapping the data from a page"""
 def scrap_books_data(url):
@@ -34,7 +34,7 @@ def scrap_books_data(url):
     html = soup.find("article")
     title = html.find("h1").get_text()
     image = html.find("img")["src"]
-    rating = html.p["class"][-1]
+    rating = html.p["class"][1]     #error
     desc = html.find_all("p")[-1].get_text()
     td = html.find_all("td")
     upc = td[0].get_text()
@@ -61,11 +61,12 @@ def scrap_books_data(url):
     }
     return value_dict
 
-url_l = ["https://books.toscrape.com/"]
+url_l = ["https://books.toscrape.com/","https://books.toscrape.com/catalogue/page-2.html"]
 """this will give us a list of web page that will be scraped"""
-for i in range(2,21):
+for i in range(2,2):
     next_page_url = f"https://books.toscrape.com/catalogue/page-{i}.html"
     url_l.append(next_page_url)
+print(url_l)
 
 """this give us all url of books for 20 pages"""
 url_list = []

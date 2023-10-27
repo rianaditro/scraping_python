@@ -3,7 +3,6 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 url = "https://books.toscrape.com/"
-next_url = "catalogue/page-2.html"
 
 def get_html_data(url):
     r = requests.get(url)
@@ -28,7 +27,6 @@ def get_url_books(url):
 url_books = get_url_books(url)
 print(url_books)
 
-""""
 #from url to string html
 html_data = get_html_data(url)
 
@@ -78,4 +76,4 @@ for html in html_target:
 
     #convert dictionary result to dataframe
 df = pd.DataFrame(list_result)
-df.to_excel("bookstoscrape.xlsx", index=False)"""
+df.to_excel("bookstoscrape.xlsx", index=False)
