@@ -1,0 +1,10 @@
+from requests_html import HTMLSession
+from bs4 import BeautifulSoup
+
+url = "https://www.ikea.co.id/in/produk/kursi-makan/kursi-berpelapis/ostano-art-30568901"
+session = HTMLSession()
+r = session.get(url)
+r.html.render() #class 'requests_html.HTMLResponse'
+soup = BeautifulSoup(r.html.html,"html.parser")
+print(soup)
+print(r.html.html)
