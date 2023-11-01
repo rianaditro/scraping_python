@@ -28,7 +28,7 @@ def html_parse(html_file): #fungsinya buat apa, for parsing, the output or retur
     item_code = html_file.find("span",class_="item-code").get_text().strip()
     designer = html_file.find("div", id="good-to-know").find("div").find_all("div")[-1].get_text().strip()
     measure = html_file.find_all("table", class_="table table-line table-sm")[-1].find_all("td")
-    length = measure[6].get_text().strip().replace(" cm", "")
+    length = measure[5].get_text().strip().replace(" cm", "")
     width = measure[7].get_text().strip().replace(" cm", "")
     height = measure[9].get_text().strip().replace(" cm", "")
     details = html_file.find("div", class_="product-desc-wrapper mb-4").p.get_text().strip()
@@ -42,12 +42,12 @@ def html_parse(html_file): #fungsinya buat apa, for parsing, the output or retur
                    "Harga":price,
                    "Deskripsi":desc,
                    "No. Artikel":item_code,
-                   "Ukuran":{"Panjang":length,
-                             "Lebar":width,
-                             "Tinggi":height},
+                   "Panjang":length,                  
+                    "Lebar":width,
+                    "Tinggi":height,
                     "Desainer":designer,
                     "Rincian Produk":details,
-                    "Gambar":image_list
+                    "Gambar":image_list[0]
                     }
     return dict_result
 
@@ -60,12 +60,16 @@ if __name__ == "__main__":
     #writing output to a file make easier for testing
     html_text_to_file = write_html_file(html_text)
 
-    #if you are running second you can comment code above and run this instead
+    #if you are running second you time can comment code above and run this instead
     html_file = read_html_file("output.html")
 
     df = html_parse(html_file)
-    #df = pd.DataFrame(df)
-    print(df)
+    
+    print(df)    
+    """
+    #practically still single data no need dataframe
+    df = pd.DataFrame(df)
+    df.to_excel("output.xlsx")"""
 
 #scraping
 """
