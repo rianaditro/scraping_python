@@ -53,7 +53,7 @@ def html_parse(html_file): #fungsinya buat apa, for parsing, the output or retur
 
 
 if __name__ == "__main__": 
-    url = "https://www.ikea.co.id/in/produk/kursi-makan/kursi-berpelapis/ostano-art-30568901"
+    url = "https://www.ikea.co.id/in/produk/kursi-makan/kursi-berpelapis/"
     #for first time running code
     html_text = access_url(url)
 
@@ -62,15 +62,6 @@ if __name__ == "__main__":
 
     #if you are running second you time can comment code above and run this instead
     html_file = read_html_file("output.html")
-
-    df = html_parse(html_file)
-    
-    print(df)    
-    """
-    #practically still single data no need dataframe
-    df = pd.DataFrame(df)
-    df.to_excel("output.xlsx")"""
-
 #scraping
 """
 1. deskripsi produk
