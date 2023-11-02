@@ -1,11 +1,12 @@
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 import pandas as pd
-
+import time
 
 def access_url(url):
     session = HTMLSession()
     r = session.get(url) #response [200]
+    print(r)
     r.html.render()
     text = r.html.html
     return text
@@ -54,15 +55,17 @@ def html_parse(html_file): #fungsinya buat apa, for parsing, the output or retur
 
 if __name__ == "__main__": 
     url = "https://www.ikea.co.id/in/produk/kursi-makan/kursi-berpelapis/"
-    #for first time running code
-    html_text = access_url(url)
 
-    #writing output to a file make easier for testing
-    html_text_to_file = write_html_file(html_text)
+    access = access_url(url)
 
-    #if you are running second you time can comment code above and run this instead
+    write = write_html_file(access)
+    
     html_file = read_html_file("output.html")
-#scraping
+    
+    item_url = html_file.find_all("div", class_="d-flex flex-row")
+    print(item_url)
+    
+
 """
 1. deskripsi produk
 2. no. artikel
